@@ -1,0 +1,31 @@
+{% extends "bootstrap/base.html" %}
+{% block title%}To do list{% endblock %}
+{% block styles %}
+    {{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/styles.css')}}">
+{% endblock %}
+{% block content %}
+<div>
+    <h1>To do List</h1>
+    <p>To use all you have to do is click on the add some new tasks button and sumit and when you are done with the task you click the '✓' button so it goes to the completed task and use the '❌' at anything to delete tasks either from the uncompleted task or the completed. </p>
+</div>
+<div class="top">
+    <h2>Tasks</h2>
+
+    {% for task in tasks: %}
+
+    <p> {{task.id }}.{{task.task}}<a class="del" href="{{url_for('done',num=task.id)}}"><button class="btn">✓</button></a><a class="del" href="{{url_for('delete',num=task.id)}}"><button class="btn">❌</button></a></p>
+
+    {% endfor%}<br>
+    <a class="add" href="{{url_for('add')}}"><button class="btn ">add some new tasks</button></a>
+    </div>
+<div class="bottom">
+<h2>Completed Tasks</h2>
+    {% for tasks in done: %}
+    <p>{{tasks.done}}<a class="del" href="{{url_for('delete_done',num=tasks.id)}}"><button class="btn">Delete completed tasks❌</button></a></li></p>
+
+    {% endfor%}
+     </div>
+
+{% endblock %}
