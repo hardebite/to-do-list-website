@@ -7,17 +7,16 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL
 import csv
+import os
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
-#
-# TEMPLATE_DIR = os.path.abspath('../templates')
-# STATIC_DIR = os.path.abspath('../static')
+
 app = Flask(__name__)
 
 
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 Bootstrap(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///to_do.db"
+app.config['SQLALCHEMY_DATABASE_URI'] =os.environ.get("DATABASE_URL", "sqlite:///to_do.db")
 db = SQLAlchemy(app)
 Base = declarative_base()
 class Task(db.Model):
